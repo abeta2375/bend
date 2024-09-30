@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: APIGateway
+    
+  
+  cloud:
+    gateway:
+      routes:
+        - id: Customer-Service
+          uri: lb://Customer-Service
+          predicates:
+            - Path=/customer/**
+ 
+        - id: Transaction-Service
+          uri: lb://Transaction-Service
+          predicates:
+            - Path=/transaction/**
+ 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+server:
+  port: 9999
+
